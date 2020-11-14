@@ -37,6 +37,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.androidnetworking.interfaces.UploadProgressListener;
 import com.example.myapplication.config.Adapter;
 import com.example.myapplication.config.Config;
 import com.example.myapplication.R;
@@ -83,7 +84,7 @@ public class ActivityViewBicycle extends AppCompatActivity implements IPickResul
     boolean sds;
     private Bitmap mSelectedImage;
     private String mSelectedImagePath;
-    private File mSelectedFileBanner;
+    File mSelectedFileBanner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,9 +139,9 @@ public class ActivityViewBicycle extends AppCompatActivity implements IPickResul
       }
     }
     public void testimg(){
-        AndroidNetworking.upload("http://192.168.6.233:8000/api/image")
+            AndroidNetworking.upload("http://192.168.6.233:8000/api/imageu")
                 .addMultipartFile("image",mSelectedFileBanner)
-                .setPriority(Priority.MEDIUM)
+                .setPriority(Priority.HIGH)
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
@@ -148,10 +149,8 @@ public class ActivityViewBicycle extends AppCompatActivity implements IPickResul
                         String message = response.optString(Config.RESPONSE_MESSAGE_FIELD);
                         if (message.equalsIgnoreCase(Config.RESPONSE_STATUS_VALUE_SUCCESS)) {
                             Toast.makeText(ActivityViewBicycle.this, "Y", Toast.LENGTH_SHORT).show();
-
                         }
                     }
-
                     @Override
                     public void onError(ANError anError) {
                         Toast.makeText(ActivityViewBicycle.this, Config.TOAST_AN_EROR, Toast.LENGTH_SHORT).show();
