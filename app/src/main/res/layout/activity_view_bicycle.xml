@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".adminActivity.ActivityViewBicycle"
+    android:orientation="vertical">
+
+    <Button android:id="@+id/upload_file"
+    android:text="pilih"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    />
+    <Button android:id="@+id/upload_file2"
+            android:text="upload"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+    />
+    <ImageView
+            android:id="@+id/testimg"
+            android:layout_width="200px"
+            android:layout_height="200px"/>
+    <androidx.cardview.widget.CardView
+        app:cardElevation="@dimen/_8sdp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/daftarsepeda"
+                android:textStyle="bold"
+                android:textSize="@dimen/_12sdp"
+                android:layout_marginLeft="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_18sdp"
+                android:textColor="#9997dd"
+                android:text="Daftar Sepeda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/daataList"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

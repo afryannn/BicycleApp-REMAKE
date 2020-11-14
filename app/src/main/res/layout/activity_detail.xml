@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".DetailActivity">
+
+
+     <androidx.cardview.widget.CardView
+             app:cardElevation="@dimen/_8sdp"
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/_40sdp">
+         <RelativeLayout
+                 android:layout_marginTop="@dimen/_10sdp"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+         <ImageView
+                 android:id="@+id/imggg"
+                 android:layout_marginLeft="@dimen/_10sdp"
+                 android:background="@drawable/arrowback"
+                 android:layout_height="@dimen/_23sdp"
+                 android:layout_width="@dimen/_26sdp"/>
+         <TextView
+
+                 android:textSize="@dimen/_15sdp"
+                 android:layout_marginLeft="@dimen/_40sdp"
+                 android:textColor="#9997dd"
+                 android:text="Detail"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+         </RelativeLayout>
+
+
+     </androidx.cardview.widget.CardView>
+
+     <androidx.cardview.widget.CardView
+             app:cardCornerRadius="@dimen/_5sdp"
+             app:cardElevation="@dimen/_3sdp"
+             android:layout_marginTop="@dimen/_30ssp"
+             android:layout_gravity="center"
+             android:layout_width="@dimen/_280sdp"
+             android:layout_height="@dimen/_380sdp">
+         <RelativeLayout
+                 android:layout_gravity="center_horizontal"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content">
+         <ImageView
+                 android:layout_marginTop="@dimen/_20sdp"
+                 android:id="@+id/detailgmspd"
+                 android:background="@drawable/pacificoriblue"
+                 android:layout_gravity="center_horizontal"
+                 android:layout_width="@dimen/_235sdp"
+                 android:layout_height="@dimen/_180sdp"/>
+
+
+         <LinearLayout
+                 android:layout_below="@+id/detailgmspd"
+                 android:layout_marginLeft="@dimen/_20sdp"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content">
+
+             <RelativeLayout
+                     android:layout_marginTop="@dimen/_30sdp"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content">
+
+                     <TextView
+                             android:id="@+id/labelmerk"
+                             android:text="Merk"
+                             android:textStyle="bold"
+                             android:textColor="#9997dd"
+                             android:textSize="@dimen/_13sdp"
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"/>
+
+                 <TextView
+                         android:textStyle="bold"
+                         android:textColor="#9997dd"
+                         android:textSize="@dimen/_13sdp"
+                         android:id="@+id/labelkode"
+                         android:layout_below="@id/labelmerk"
+                         android:text="Kode"
+                         android:layout_marginTop="@dimen/_8sdp"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"/>
+                 <TextView
+                         android:textStyle="bold"
+                         android:textColor="#9997dd"
+                         android:textSize="@dimen/_13sdp"
+                         android:id="@+id/labelwarna"
+                         android:layout_below="@id/labelkode"
+                         android:text="Warna"
+                         android:layout_marginTop="@dimen/_8sdp"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"/>
+             </RelativeLayout>
+
+             <RelativeLayout
+                     android:layout_marginLeft="@dimen/_25sdp"
+                     android:layout_marginTop="@dimen/_30sdp"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content">
+
+                 <TextView
+                         android:id="@+id/detailmerk"
+                         android:text="Pacific"
+                         android:textColor="#6c757d"
+                         android:textSize="@dimen/_13sdp"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"/>
+
+                 <TextView
+
+                         android:textColor="#6c757d"
+                         android:textSize="@dimen/_13sdp"
+                         android:id="@+id/detailkode"
+                         android:layout_below="@id/detailmerk"
+                         android:text="B55BLE"
+                         android:layout_marginTop="@dimen/_8sdp"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"/>
+                 <TextView
+                         android:textColor="#6c757d"
+                         android:textSize="@dimen/_13sdp"
+                         android:id="@+id/detailwarna"
+                         android:layout_below="@id/detailkode"
+                         android:text="Blue Ocean Metalic"
+                         android:layout_marginTop="@dimen/_8sdp"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"/>
+             </RelativeLayout>
+
+
+         </LinearLayout>
+         </RelativeLayout>
+
+     </androidx.cardview.widget.CardView>
+
+    <Button
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:text="Lanjutkan"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/btnlanjutkan"
+        android:layout_gravity="center"
+        android:layout_width="@dimen/_280sdp"
+        android:layout_height="@dimen/_35sdp"/>
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--            app:cardCornerRadius="@dimen/_5sdp"-->
+<!--            app:cardElevation="@dimen/_1sdp"-->
+<!--            app:cardBackgroundColor="#DC3545"-->
+<!--            android:layout_marginTop="@dimen/_20ssp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_width="@dimen/_280sdp"-->
+<!--            android:layout_height="@dimen/_35sdp">-->
+<!--        -->
+<!--            <TextView-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Lanjutkan"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--            android:layout_width="wrap_content"/>-->
+<!--    </androidx.cardview.widget.CardView>-->
+
+</LinearLayout>
