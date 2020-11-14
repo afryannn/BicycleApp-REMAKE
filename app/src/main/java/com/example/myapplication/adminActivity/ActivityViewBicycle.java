@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.webkit.PermissionRequest;
 import android.widget.ImageView;
@@ -44,6 +46,14 @@ import com.example.myapplication.config.SessionManager;
 import com.example.myapplication.user.HomeModel;
 
 import com.example.myapplication.userActivity.MainActivity;
+
+import com.example.myapplication.userActivity.RegisterActivity;
+import com.vansuita.pickimage.bean.PickResult;
+import com.vansuita.pickimage.bundle.PickSetup;
+import com.vansuita.pickimage.dialog.PickImageDialog;
+import com.vansuita.pickimage.listeners.IPickResult;
+
+import id.zelory.compressor.Compressor;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -53,13 +63,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityViewBicycle extends AppCompatActivity {
+public class ActivityViewBicycle extends AppCompatActivity implements IPickResult {
     private static final int PERMISSION_REQUEST_CODE = 1;
     private static final int REQUEST_GALLERY = 200;
     SessionManager sessionManager;
     Button upload2;
     TextView file_name;
-    ImageView tstimg;
+    ImageView result_img;
     String file_path = null;
     private RecyclerView daataList;
     private AdminImageAdapter mAdapter;
@@ -71,6 +81,10 @@ public class ActivityViewBicycle extends AppCompatActivity {
     private ArrayList<HomeModel> mList = new ArrayList<>();
     Button btn;
     boolean sds;
+    private Bitmap mSelectedImage;
+    private String mSelectedImagePath;
+    private File mSelectedFileBanner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,166 +96,81 @@ public class ActivityViewBicycle extends AppCompatActivity {
         setContentView(R.layout.activity_view_bicycle);
         sessionManager = new SessionManager(getApplicationContext());
         sessionManager.setLogin(false);
-        tstimg = findViewById(R.id.testimg);
+        result_img = findViewById(R.id.testimg);
         upload2 = findViewById(R.id.upload_file2);
         file_name = findViewById(R.id.daftarsepeda);
         Button upload = findViewById(R.id.upload_file);
+        daataList = findViewById(R.id.daataList);
+        daataList.setHasFixedSize(true);
+        daataList.setLayoutManager(new LinearLayoutManager(this));
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Build.VERSION.SDK_INT>=23){
-                    filepicker();
-                }else{
-                    requestPermission();
-                }
+                PickImageDialog.build(new PickSetup()).show(ActivityViewBicycle.this);
             }
         });
         upload2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(file_path!=null){
-                    UploadFile();
-                }else{
-                    Toast.makeText(ActivityViewBicycle.this,"please choose...",Toast.LENGTH_SHORT).show();
-                }
+                testimg();
             }
         });
-        daataList = findViewById(R.id.daataList);
-        daataList.setHasFixedSize(true);
-        daataList.setLayoutManager(new LinearLayoutManager(this));
         getItemrList();
     }
-
-    private void UploadFile(){
-     UploadTask uploadTask = new UploadTask();
-     uploadTask.execute(new String[]{file_path});
-    }
-    private void filepicker(){
-        Toast.makeText(ActivityViewBicycle.this,"File Picker...",Toast.LENGTH_SHORT).show();
-        Intent opengallery=new Intent(Intent.ACTION_PICK);
-        opengallery.setType("image/*");
-        startActivityForResult(opengallery,REQUEST_GALLERY);
-    }
-
-    private void requestPermission(){
-     if(ActivityCompat.shouldShowRequestPermissionRationale(ActivityViewBicycle.this, Manifest.permission.READ_EXTERNAL_STORAGE)){
-         Toast.makeText(ActivityViewBicycle.this,"Acces Denied..",Toast.LENGTH_SHORT).show();
-     }else{
-         ActivityCompat.requestPermissions(ActivityViewBicycle.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-     }
-    }
-    private boolean checkPermission(){
-        int result = ContextCompat.checkSelfPermission(ActivityViewBicycle.this,Manifest.permission.READ_EXTERNAL_STORAGE);
-        if(result== PackageManager.PERMISSION_GRANTED){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode){
-            case PERMISSION_REQUEST_CODE:
-                if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                    Toast.makeText(ActivityViewBicycle.this,"Permission Succes...",Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(ActivityViewBicycle.this,"Permission Failed",Toast.LENGTH_SHORT).show();
-                }
-        }
+    public void onPickResult(PickResult r) {
+      if(r.getError() == null){
+          try {
+              File fileku = new Compressor(this)
+                      .setQuality(50)
+                      .setCompressFormat(Bitmap.CompressFormat.WEBP)
+                      .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath())
+                      .compressToFile(new File(r.getPath()));
+              mSelectedImagePath = fileku.getAbsolutePath();
+              mSelectedFileBanner = new File(mSelectedImagePath);
+              mSelectedImage=r.getBitmap();
+              result_img.setImageBitmap(mSelectedImage);
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+      }else{
+          Toast.makeText(ActivityViewBicycle.this, r.getError().getMessage(), Toast.LENGTH_SHORT).show();
+      }
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==REQUEST_GALLERY && resultCode== Activity.RESULT_OK){
-            String filePath=getRealPathFromUri(data.getData(),ActivityViewBicycle.this);
-            Log.d("File Path bossqiu: "," "+filePath);
-            this.file_path=filePath;
-            File file = new File(filePath);
-            file_name.setText(file.getName());
-        }
-    }
-    public String getRealPathFromUri(Uri uri,Activity activity){
-        String[] proj  = {MediaStore.Images.Media.DATA};
-        Cursor cursor=activity.getContentResolver().query(uri,proj,null,null,null,null);
-        if(cursor==null){
-            return uri.getPath();
-        }else{
-            cursor.moveToFirst();
-            int id = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-            return cursor.getString(id);
-        }
-    }
-
-    public class UploadTask extends AsyncTask<String,String,String>{
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            if(s.equalsIgnoreCase("true")){
-                Toast.makeText(ActivityViewBicycle.this,"200 OK",Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(ActivityViewBicycle.this,"Failed",Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(String... strings) {
-            if(uploadFile(strings[0])){
-                return "true";
-            }else{
-                return "failed";
-            }
-        }
-        private boolean uploadFile(String path){
-            File file = new File(path);
-
-            try {
-                RequestBody requestBody=new MultipartBody.Builder().setType(MultipartBody.FORM)
-                        .addFormDataPart("image",file.getName(),RequestBody.create(MediaType.parse("image/*"),file))
-                        .addFormDataPart("some_key","some_value")
-                        .addFormDataPart("submit","submit")
-                        .build();
-                Request request = new Request.Builder()
-                        .url("http://192.168.43.237:8000/api/image")
-                        .post(requestBody)
-                        .build();
-                OkHttpClient client = new OkHttpClient();
-                client.newCall(request).enqueue(new Callback() {
+    public void testimg(){
+        AndroidNetworking.upload("http://192.168.6.233:8000/api/image")
+                .addMultipartFile("image",mSelectedFileBanner)
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
-                    public void onFailure(Call call, IOException e) {
-                        e.printStackTrace();
+                    public void onResponse(JSONObject response) {
+                        String message = response.optString(Config.RESPONSE_MESSAGE_FIELD);
+                        if (message.equalsIgnoreCase(Config.RESPONSE_STATUS_VALUE_SUCCESS)) {
+                            Toast.makeText(ActivityViewBicycle.this, "Y", Toast.LENGTH_SHORT).show();
+
+                        }
                     }
 
                     @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        Toast.makeText(ActivityViewBicycle.this,"200 OK",Toast.LENGTH_SHORT).show();
+                    public void onError(ANError anError) {
+                        Toast.makeText(ActivityViewBicycle.this, Config.TOAST_AN_EROR, Toast.LENGTH_SHORT).show();
+                        Log.d("HBB", "onError: " + anError.getErrorBody());
+                        Log.d("HBB", "onError: " + anError.getLocalizedMessage());
+                        Log.d("HBB", "onError: " + anError.getErrorDetail());
+                        Log.d("HBB", "onError: " + anError.getResponse());
+                        Log.d("HBB", "onError: " + anError.getErrorCode());
                     }
                 });
-                return true;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
-        }
     }
-
-    public void getItemrList() {
+       public void getItemrList() {
         AndroidNetworking.get(Config.BASE_URL + "getitem")
-//                .addBodyParameter(body)
                 .setPriority(Priority.MEDIUM)
                 .setOkHttpClient(((RS) getApplication()).getOkHttpClient())
                 .build()
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-
                         if (mAdapter != null) {
                             mAdapter.clearData();
                             mAdapter.notifyDataSetChanged();
@@ -292,4 +221,6 @@ public class ActivityViewBicycle extends AppCompatActivity {
                     }
                 });
     }
+
+
 }
