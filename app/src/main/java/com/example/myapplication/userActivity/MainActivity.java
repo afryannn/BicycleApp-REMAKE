@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         logEmail = findViewById(R.id.logEmail);
         logPassword = findViewById(R.id.logPassword);
         logBtnLog = findViewById(R.id.logBtnLog);
-
         logBtnLog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,8 +86,9 @@ public class MainActivity extends AppCompatActivity {
                                         Log.e("AF", "id: "+userid);
                                         sessionManager.setLogin(true);
                                         sessionManager.setUsername(email);
+                                         String idd = Integer.toString(userid);
+                                        sessionManager.setIdu(idd);
                                         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                                        intent.putExtra("userid",userid);
                                         startActivity(intent);
                                         if (role.equalsIgnoreCase("2"))
                                            intent = new Intent(MainActivity.this, WhereAdmin.class);

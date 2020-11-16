@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.myapplication">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.example.myapplication">
+
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
             android:name=".config.RS"
-
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
-            android:requestLegacyExternalStorage="true"
             android:label="@string/app_name"
+            android:requestLegacyExternalStorage="true"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
-
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity android:name=".BookingActivity">
+
+        </activity>
+        <activity android:name=".adminActivity.AddItemActivity">
+        </activity>
         <activity android:name=".Transaksi_activity">
         </activity>
         <activity android:name=".adminActivity.EditItem">
@@ -23,35 +29,33 @@
         <activity android:name=".adminActivity.EditCustomer"/>
         <activity android:name=".config.blank"/>
         <activity android:name=".adminActivity.ActivityViewBicycle">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
         </activity>
         <activity android:name=".adminActivity.WhereAdmin">
-
         </activity>
         <activity android:name=".ViewItem"/>
         <activity android:name=".adminActivity.ViewCustomerAdmin"/>
         <activity android:name=".DetailActivity"/>
         <activity android:name=".userActivity.HomeActivity">
-
         </activity>
         <activity android:name=".userActivity.RegisterActivity"/>
         <activity android:name=".userActivity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
         </activity>
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.com.example.myapplication"
-            android:exported="false"
-            android:grantUriPermissions="true"
-            tools:replace="android:authorities">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/picker_provider_paths" />
-        </provider>
 
+        <provider
+                android:name="androidx.core.content.FileProvider"
+                android:authorities="${applicationId}.com.example.myapplication"
+                android:exported="false"
+                android:grantUriPermissions="true"
+                tools:replace="android:authorities">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/picker_provider_paths"/>
+        </provider>
     </application>
 
 </manifest>

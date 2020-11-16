@@ -2,15 +2,18 @@ package com.example.myapplication.user;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.BookingActivity;
 import com.example.myapplication.config.Config;
 import com.example.myapplication.userActivity.HomeActivity;
 import com.example.myapplication.R;
@@ -61,14 +64,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ItemViewHolder
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private TextView ml_harga,ml_merk;
         private ImageView imageView;
+        private Button booking;
 
-        public ItemViewHolder(@NonNull View itemView) {
+        public ItemViewHolder(@NonNull View itemView ) {
             super(itemView);
             context = itemView.getContext();
             ml_harga = itemView.findViewById(R.id.pricee);
             ml_merk = itemView.findViewById(R.id.txtvw);
             imageView = itemView.findViewById(R.id.imgvw);
-
+            booking = itemView.findViewById(R.id.booking);
         }
 
         private void bind(final HomeModel Amodel) {
@@ -77,6 +81,20 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ItemViewHolder
             Picasso.get()
                     .load(Config.BASE_URL+"image/"+Amodel.getGambar())
                     .into(imageView);
+
+            booking.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, BookingActivity.class);
+                    intent.putExtra("id",Integer.valueOf(Amodel.getIditem()));
+                    intent.putExtra("kode",String.valueOf(Amodel.getKodesepeda()));
+                    intent.putExtra("merk",String.valueOf(Amodel.getMerk()));
+                    intent.putExtra("warna",String.valueOf(Amodel.getWarna()));
+                    intent.putExtra("harga",String.valueOf(Amodel.getHarga()));
+                    intent.putExtra("gambar",String.valueOf(Amodel.getGambar()));
+                    context.startActivity(intent);
+                }
+            });
         }
 
     }

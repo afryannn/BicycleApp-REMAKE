@@ -46,6 +46,7 @@ import com.example.myapplication.admin.AdminImageAdapter;
 import com.example.myapplication.config.SessionManager;
 import com.example.myapplication.user.HomeModel;
 
+import com.example.myapplication.userActivity.HomeActivity;
 import com.example.myapplication.userActivity.MainActivity;
 
 import com.example.myapplication.userActivity.RegisterActivity;
@@ -74,10 +75,6 @@ public class ActivityViewBicycle extends AppCompatActivity implements IPickResul
     String file_path = null;
     private RecyclerView daataList;
     private AdminImageAdapter mAdapter;
-    List<String> titles;
-    List<String> prices;
-    List<Integer> images;
-    Adapter adapter;
     private SwipeRefreshLayout swp;
     private ArrayList<HomeModel> mList = new ArrayList<>();
     Button btn;
@@ -97,26 +94,33 @@ public class ActivityViewBicycle extends AppCompatActivity implements IPickResul
         setContentView(R.layout.activity_view_bicycle);
         sessionManager = new SessionManager(getApplicationContext());
         sessionManager.setLogin(false);
-        result_img = findViewById(R.id.testimg);
-        upload2 = findViewById(R.id.upload_file2);
         file_name = findViewById(R.id.daftarsepeda);
-        Button upload = findViewById(R.id.upload_file);
+
         daataList = findViewById(R.id.daataList);
         daataList.setHasFixedSize(true);
         daataList.setLayoutManager(new LinearLayoutManager(this));
-        upload.setOnClickListener(new View.OnClickListener() {
+        ImageView add = findViewById(R.id.img_additem);
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PickImageDialog.build(new PickSetup()).show(ActivityViewBicycle.this);
-            }
-        });
-        upload2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                testimg();
+                Intent intent = new Intent(ActivityViewBicycle.this,AddItemActivity.class);
+                startActivity(intent);
             }
         });
         getItemrList();
+//        upload.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                PickImageDialog.build(new PickSetup()).show(ActivityViewBicycle.this);
+//            }
+//        });
+//        upload2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                testimg();
+//            }
+//        });
+
     }
     @Override
     public void onPickResult(PickResult r) {
@@ -138,30 +142,30 @@ public class ActivityViewBicycle extends AppCompatActivity implements IPickResul
           Toast.makeText(ActivityViewBicycle.this, r.getError().getMessage(), Toast.LENGTH_SHORT).show();
       }
     }
-    public void testimg(){
-            AndroidNetworking.upload("http://192.168.6.233:8000/api/imageu")
-                .addMultipartFile("image",mSelectedFileBanner)
-                .setPriority(Priority.HIGH)
-                .build()
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        String message = response.optString(Config.RESPONSE_MESSAGE_FIELD);
-                        if (message.equalsIgnoreCase(Config.RESPONSE_STATUS_VALUE_SUCCESS)) {
-                            Toast.makeText(ActivityViewBicycle.this, "Y", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    @Override
-                    public void onError(ANError anError) {
-                        Toast.makeText(ActivityViewBicycle.this, Config.TOAST_AN_EROR, Toast.LENGTH_SHORT).show();
-                        Log.d("HBB", "onError: " + anError.getErrorBody());
-                        Log.d("HBB", "onError: " + anError.getLocalizedMessage());
-                        Log.d("HBB", "onError: " + anError.getErrorDetail());
-                        Log.d("HBB", "onError: " + anError.getResponse());
-                        Log.d("HBB", "onError: " + anError.getErrorCode());
-                    }
-                });
-    }
+//    public void testimg(){
+//            AndroidNetworking.upload("http://192.168.43.237:8000/api/image")
+//                .addMultipartFile("image",mSelectedFileBanner)
+//                .setPriority(Priority.HIGH)
+//                .build()
+//                .getAsJSONObject(new JSONObjectRequestListener() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//                        String message = response.optString(Config.RESPONSE_MESSAGE_FIELD);
+//                        if (message.equalsIgnoreCase(Config.RESPONSE_STATUS_VALUE_SUCCESS)) {
+//                            Toast.makeText(ActivityViewBicycle.this, "Y", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                    @Override
+//                    public void onError(ANError anError) {
+//                        Toast.makeText(ActivityViewBicycle.this, Config.TOAST_AN_EROR, Toast.LENGTH_SHORT).show();
+//                        Log.d("HBB", "onError: " + anError.getErrorBody());
+//                        Log.d("HBB", "onError: " + anError.getLocalizedMessage());
+//                        Log.d("HBB", "onError: " + anError.getErrorDetail());
+//                        Log.d("HBB", "onError: " + anError.getResponse());
+//                        Log.d("HBB", "onError: " + anError.getErrorCode());
+//                    }
+//                });
+//    }
        public void getItemrList() {
         AndroidNetworking.get(Config.BASE_URL + "getitem")
                 .setPriority(Priority.MEDIUM)

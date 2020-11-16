@@ -4,7 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_8sdp"
         android:layout_width="@dimen/_160sdp"
         android:layout_height="@dimen/_175sdp">
 
@@ -51,9 +51,10 @@
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"/>
            <Button
+                   android:id="@+id/booking"
                    android:layout_marginRight="@dimen/_10sdp"
                    android:layout_alignParentRight="true"
-                   android:text="Sewa"
+                   android:text="Booking"
                    android:textSize="@dimen/_8sdp"
                    android:textColor="#fff"
                    android:background="@drawable/btnregister"

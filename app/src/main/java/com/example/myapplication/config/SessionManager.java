@@ -19,6 +19,15 @@ public class SessionManager {
     public boolean getLogin(){
         return sharedPreferences.getBoolean("key_login",false);
     }
+
+    public void setIdu(String Idu){
+        editor.putString("key_idu",Idu);
+        editor.commit();
+    }
+    public String getIdu(){
+        return sharedPreferences.getString("key_idu","");
+    }
+
     public void setUsername(String username){
         editor.putString("key_username",username);
         editor.commit();

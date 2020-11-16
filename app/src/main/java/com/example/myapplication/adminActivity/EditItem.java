@@ -44,7 +44,6 @@ public class EditItem extends AppCompatActivity {
         Picasso.get()
                 .load(Config.BASE_URL+"image/"+exgambar)
                 .into(img);
-        edtkodesepeda.setText(exkodesepeda);
         edtmerk.setText(exmerk);
         edtwarna.setText(exwarna);
         edthargasewa.setText(exhargasewa);

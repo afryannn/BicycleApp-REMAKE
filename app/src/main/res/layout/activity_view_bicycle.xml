@@ -8,20 +8,6 @@
     tools:context=".adminActivity.ActivityViewBicycle"
     android:orientation="vertical">
 
-    <Button android:id="@+id/upload_file"
-    android:text="pilih"
-    android:layout_height="wrap_content"
-    android:layout_width="wrap_content"
-    />
-    <Button android:id="@+id/upload_file2"
-            android:text="upload"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-    />
-    <ImageView
-            android:id="@+id/testimg"
-            android:layout_width="200px"
-            android:layout_height="200px"/>
     <androidx.cardview.widget.CardView
         app:cardElevation="@dimen/_8sdp"
         android:layout_width="match_parent"
@@ -40,6 +26,15 @@
                 android:text="Daftar Sepeda"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
+            <ImageView
+                    android:id="@+id/img_additem"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_18sdp"
+                 android:layout_alignParentRight="true"
+                 android:background="@drawable/ic_add"
+                 android:layout_width="@dimen/_15sdp"
+                 android:layout_height="@dimen/_15sdp"/>
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>

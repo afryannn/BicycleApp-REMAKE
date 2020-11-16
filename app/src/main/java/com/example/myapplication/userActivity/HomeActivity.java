@@ -46,7 +46,7 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity {
     private RecyclerView dataList;
     private HomeAdapter mAdapter;
-
+    public static String UserId;
     SessionManager sessionManager;
     List<String> titles;
     List<String> prices;
@@ -83,18 +83,10 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void setImageForPosition(int position, ImageView imageView) {
                 imageView.setImageResource(sampleImages[position]);
-//                imageView.getLayoutParams().width = 100;
-//                imageView.getLayoutParams().height = 100;
                 imageView.setAdjustViewBounds(true);
             }
         });
-        carouselView.setImageClickListener(new ImageClickListener() {
-            @Override
-            public void onClick(int position) {
-                sessionManager.setLogin(false);
-//                Toast.makeText(HomeActivity.this, "Tidak ada user", Toast.LENGTH_SHORT).show();
-            }
-        });
+
         dataList = findViewById(R.id.dataList);
         dataList.setHasFixedSize(true);
         dataList.setLayoutManager(new LinearLayoutManager(this));
@@ -130,6 +122,8 @@ public class HomeActivity extends AppCompatActivity {
                                 HomeModel item = new HomeModel(dataUser);
                                 item.setIditem(dataUser.optInt("id"));
                                 item.setMerk(dataUser.optString("merk"));
+                                item.setKodesepeda(dataUser.optString("kodesepeda"));
+                                item.setWarna(dataUser.optString("warna"));
                                 item.setHarga(dataUser.optString("hargasewa"));
                                 item.setGambar(dataUser.optString("gambar"));
                                 mList.add(item);
