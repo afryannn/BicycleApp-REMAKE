@@ -26,6 +26,8 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.example.myapplication.BookingActivity;
+import com.example.myapplication.UserTransaksi;
 import com.example.myapplication.config.Adapter;
 import com.example.myapplication.config.Config;
 import com.example.myapplication.R;
@@ -86,7 +88,14 @@ public class HomeActivity extends AppCompatActivity {
                 imageView.setAdjustViewBounds(true);
             }
         });
-
+        ImageView trns = findViewById(R.id.trns);
+        trns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(HomeActivity.this, UserTransaksi.class);
+                startActivity(i);
+            }
+        });
         dataList = findViewById(R.id.dataList);
         dataList.setHasFixedSize(true);
         dataList.setLayoutManager(new LinearLayoutManager(this));

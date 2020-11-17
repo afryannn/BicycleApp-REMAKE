@@ -37,6 +37,7 @@
                 android:layout_width="@dimen/_13sdp"
                 android:layout_height="@dimen/_13sdp"/>
         <ImageView
+                android:id="@+id/trns"
                 android:text="Detil"
                 android:textColor="#fff"
                 android:layout_marginTop="@dimen/_10sdp"

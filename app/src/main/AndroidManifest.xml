@@ -17,8 +17,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity android:name=".AdminTransaksi">
+        </activity>
+        <activity android:name=".UserTransaksi">
+        </activity>
         <activity android:name=".BookingActivity">
-
         </activity>
         <activity android:name=".adminActivity.AddItemActivity">
         </activity>
