@@ -60,14 +60,13 @@ public class HomeActivity extends AppCompatActivity {
     ImageView logout;
     boolean sds;
     int[] sampleImages =new int[] {R.drawable.banner1,R.drawable.banner2,R.drawable.banner3};
-    String[] sampleTitles = new String[] {"A","B"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = getWindow(); // in Activity's onCreate() for instance
+            Window w = getWindow(); // in Activity's oate() for instance
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
         setContentView(R.layout.activity_home);

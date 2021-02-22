@@ -21,8 +21,6 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.myapplication.R;
 import com.example.myapplication.config.Config;
 import com.example.myapplication.config.RS;
-import com.example.myapplication.userActivity.HomeActivity;
-import com.example.myapplication.userActivity.MainActivity;
 import com.vansuita.pickimage.bean.PickResult;
 import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
@@ -45,12 +43,14 @@ public class AddItemActivity extends AppCompatActivity implements IPickResult {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Window w = getWindow(); // in Activity's onCreate() for instance
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
         setContentView(R.layout.activity_add_item);
+
         mKodesepeda = findViewById(R.id.Akodesepeda);
         mMerk = findViewById(R.id.Amerk);
         mWarna = findViewById(R.id.Awarna);

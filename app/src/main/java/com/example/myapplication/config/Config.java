@@ -34,8 +34,8 @@ public class Config {
 
         //public static final String BASE_URL = " http://98102f27.ngrok.io/gma5/";
         //public static final String BASE_URL = "http://192.168.43.107/gma5/";
-        public static final String BASE_URL = "http://192.168.43.237:8000/api/";
-        public static final String URL = "http://192.168.43.237:8000/";
+        public static final String BASE_URL = "http://192.168.137.1:8000/api/";
+        public static final String URL = "http://192.168.6.223:8000";
         private static final String API = "api/";
         public static final String BASE_URL_API = BASE_URL + API;
 
